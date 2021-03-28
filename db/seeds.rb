@@ -1,3 +1,5 @@
+Product.destroy_all
+
 10.times do
   p = Product.create(
     name:        Faker::Commerce.unique.product_name,
@@ -9,3 +11,4 @@
 
   puts "Creating #{p.name}"
 end
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
