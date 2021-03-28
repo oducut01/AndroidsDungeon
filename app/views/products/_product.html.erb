@@ -1,0 +1,17 @@
+<div class="column is-2">
+  <div class="card">
+    <div class="card-image">
+      <% if product.image.present? %>
+        <%= link_to image_tag(product.image), product %>
+      <% end %>
+    </div>
+    <div class="card-content">
+      <p class="title is-5"><%= link_to product.name, product %></p>
+
+      <div class="content">
+        <p class="subtitle is-6">Price: <%= product.salePrice %></p>
+        <p class="subtitle is-6">Quantity: <%= product.quantity %></p>
+      </div>
+    </div>
+  </div>
+</div>
