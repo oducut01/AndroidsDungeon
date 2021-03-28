@@ -10,6 +10,10 @@ Product.destroy_all
   )
 
   puts "Creating #{p.name}"
+
+  downloaded_image = URI.open("https://source.unsplash.com/600x600/?#{p.name}")
+  p.image.attach(io: downloaded_image, filename: "m-#{p.name}.jpg")
+  sleep(1)
 end
 
 # if Rails.env.development?
