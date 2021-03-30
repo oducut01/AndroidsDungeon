@@ -1,8 +1,11 @@
 
 <div class=content>
-  <p>
+  <p class="is-size-5">
     Found <%= pluralize(@products.size, 'result') %>
-    for the search term "<%= params[:search_term] %>".
+    for the search term "<%= params[:search_term] %>"
+    <% if params[:search_term] != '' %>
+      in "<%= Category.find(params[:category_id]).name %>"
+    <% end %>
   </p>
 </div>
 

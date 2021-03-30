@@ -14,7 +14,12 @@ class ProductsController < ApplicationController
   end
 
   def search
-    @products = Product.where("name LIKE ? OR description LIKE ?", "%#{params[:search_term]}%",
-                              "%#{params[:search_term]}%")
+    @products = if params[:category_id] == ""
+                  Product.where("name LIKE ? OR description LIKE ?", "%#{params[:search_term]}%",
+                                "%#{params[:search_term]}%")
+                else
+                  Product.where("name LIKE ? OR description LIKE ?", "%#{params[:search_term]}%",
+                                "%#{params[:search_term]}%").where(category_id: params[:category_id])
+                end
   end
 end

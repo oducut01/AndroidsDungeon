@@ -20,6 +20,11 @@
               <%= text_field_tag(:search_term, nil, class: 'input', placeholder: 'Search Products By Name') %>
             </div>
             <div class="control">
+              <div class="select">
+                <%= select_tag "category_id", options_from_collection_for_select(Category.all, "id", "name"), prompt: "All"%>
+              </div>
+            </div>
+            <div class="control">
               <%= submit_tag("Search", class: "button is-info") %>
             </div>
           </div>
