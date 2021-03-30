@@ -1,27 +1,32 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @product.name %>
-</p>
+<div class="columns box content">
+  <%= image_tag(@product.image.variant(resize_to_limit: [300, 285]).processed) %>
 
-<p>
-  <strong>Saleprice:</strong>
-  <%= @product.salePrice %>
-</p>
+  <div class="column">
+      <p>
+        <strong>Name:</strong>
+        <%= @product.name %>
+      </p>
+      <p>
+        <strong>Saleprice:</strong>
+        <%= @product.salePrice %>
+      </p>
 
-<p>
-  <strong>Msrp:</strong>
-  <%= @product.msrp %>
-</p>
+      <p>
+        <strong>Msrp:</strong>
+        <%= @product.msrp %>
+      </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @product.description %>
-</p>
+      <p>
+        <strong>Description:</strong>
+        <%= @product.description %>
+      </p>
 
-<p>
-  <strong>Quantity:</strong>
-  <%= @product.quantity %>
-</p>
+      <p>
+        <strong>Quantity:</strong>
+        <%= @product.quantity %>
+      </p>
 
+
+</div>
