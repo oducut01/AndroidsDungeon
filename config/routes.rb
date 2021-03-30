@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  resources :products
+  resources :products, only: :show do
+    collection do
+      get :search
+    end
+  end
   root to: "products#index"
 end
