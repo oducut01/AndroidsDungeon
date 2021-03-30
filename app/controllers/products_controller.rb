@@ -2,9 +2,12 @@ class ProductsController < ApplicationController
   # GET /products or /products.json
   def index
     @products = if !params[:category_id] || params[:category_id] == ""
-                  Product.all
+                  Product.page(params[:page])
+                         .order(:name)
                 else
                   Product.where(category_id: params[:category_id])
+                         .page(params[:page])
+                         .order(:name)
                 end
   end
 
@@ -17,9 +20,14 @@ class ProductsController < ApplicationController
     @products = if params[:category_id] == ""
                   Product.where("name LIKE ? OR description LIKE ?", "%#{params[:search_term]}%",
                                 "%#{params[:search_term]}%")
+                         .page(params[:page])
+                         .order(:name)
                 else
                   Product.where("name LIKE ? OR description LIKE ?", "%#{params[:search_term]}%",
-                                "%#{params[:search_term]}%").where(category_id: params[:category_id])
+                                "%#{params[:search_term]}%")
+                         .where(category_id: params[:category_id])
+                         .page(params[:page])
+                         .order(:name)
                 end
   end
 end

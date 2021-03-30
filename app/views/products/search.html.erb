@@ -1,9 +1,9 @@
 
 <div class=content>
   <p class="is-size-5">
-    Found <%= pluralize(@products.size, 'result') %>
+    Found <%= pluralize(@products.total_count, 'result') %>
     for the search term "<%= params[:search_term] %>"
-    <% if params[:search_term] != '' %>
+    <% if params[:category_id] != '' %>
       in "<%= Category.find(params[:category_id]).name %>"
     <% end %>
   </p>
@@ -14,3 +14,7 @@
              collection: @products,
              locals: { show_link: true } %>
 </div>
+
+<nav class="pagination" role="navigation" aria-label="pagination">
+  <%= paginate @products %>
+</nav>

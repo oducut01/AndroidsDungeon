@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-image">
       <% if product.image.present? %>
-        <%= link_to image_tag(product.image.variant(resize_to_limit: [285, 285]).processed), product %>
+        <%= link_to image_tag(product.image), product %>
       <% end %>
     </div>
     <div class="card-content">
