@@ -1,15 +1,15 @@
-<div class="column is-2">
+<div class="column is-one-quarter">
   <div class="card">
     <div class="card-image">
       <% if product.image.present? %>
-        <%= link_to image_tag(product.image), product %>
+        <%= link_to image_tag(product.image.variant(resize_to_limit: [285, 285]).processed), product %>
       <% end %>
     </div>
     <div class="card-content">
       <p class="title is-5"><%= link_to product.name, product %></p>
 
       <div class="content">
-        <p class="subtitle is-6">Price: <%= product.salePrice %></p>
+        <p class="subtitle is-6">Price: <%= number_to_currency product.salePrice / 100.0 %></p>
         <p class="subtitle is-6">Quantity: <%= product.quantity %></p>
       </div>
     </div>
