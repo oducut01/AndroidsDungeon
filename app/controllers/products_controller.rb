@@ -10,7 +10,8 @@ class ProductsController < ApplicationController
   def show; end
 
   def search
-    @products = Product.where("name LIKE ?", "%#{params[:search_term]}%")
+    @products = Product.where("name LIKE ? OR description LIKE ?", "%#{params[:search_term]}%",
+                              "%#{params[:search_term]}%")
   end
 
   # GET /products/new
