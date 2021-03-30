@@ -279,6 +279,7 @@ DEPENDENCIES
   faker!
   image_processing (~> 1.2)
   jbuilder (~> 2.7)
+  kaminari
   listen (~> 3.3)
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
