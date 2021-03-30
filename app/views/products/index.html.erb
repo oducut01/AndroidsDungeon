@@ -1,5 +1,16 @@
 <h1 class="title">Products</h3>
 
+<div class="field">
+  <label class="label">Filter:</label>
+  <form>
+    <div class="select">
+      <%= select_tag "category_id", options_from_collection_for_select(Category.all, "id", "name", :selected => params[:category_id]),
+        prompt: "All", onchange: 'this.form.submit();' %>
+    </div>
+  </form>
+</div>
+
+
 <div class="content">
   <div class="columns is-multiline">
     <%= render @products %>
