@@ -28,5 +28,16 @@
         <%= @product.quantity %>
       </p>
 
+      <%= form_tag(checkout_create_path, remote: true) do %>
+        <%= hidden_field_tag(:product_id, @product.id) %>
 
+        <%= button_tag class: "button is-info is-outlined" do %>
+          <span class="icon-text">
+            <span class="icon">
+              <i class="fas fa-cart-plus"></i>
+            </span>
+            <span>Add</span>
+          </span>
+        <% end %>
+      <% end %>
 </div>
