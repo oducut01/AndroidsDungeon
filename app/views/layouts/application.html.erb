@@ -9,14 +9,15 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule="" src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.js"></script>
     <script src="https://js.stripe.com/v3"></script>
   </head>
 
   <body>
     <section class="section">
       <div class="container">
-      <%= link_to "The Android's Dungeon: Games & Hobbies", root_path, class:"title is-1" %>
+      <h1 class="title is-1">The Android's Dungeon: Games & Hobbies</h1>
         <%= form_with(url: search_products_path, local: true, method: "get", class: 'mt-5 mb-5') do %>
           <div class="field has-addons">
             <div class="control">
