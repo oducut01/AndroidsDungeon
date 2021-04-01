@@ -13,5 +13,15 @@ Rails.application.routes.draw do
     get "cancel", to: "checkout#cancel", as: "checkout_cancel"
   end
   resources :cart, only: %i[index create destroy]
+
+  # get "carts/:id" => "carts#show", as: "cart"
+  # delete "carts/:id" => "carts#destroy"
+
+  post "cart_products/:id/add" => "cart_products#add_quantity", as: "cart_products_add"
+  post "cart_products/:id/reduce" => "cart_products#reduce_quantity", as: "cart_products_reduce"
+  post "cart_products" => "cart_products#create"
+  get "cart_products/:id" => "cart_products#show", as: "cart_product"
+  delete "cart_products/:id" => "cart_products#destroy"
+
   root to: "products#index"
 end
