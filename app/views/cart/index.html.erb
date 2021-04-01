@@ -1,0 +1,39 @@
+<h3 class="title is-3">Your Cart
+<% if cart.size == 0 %>
+  is empty
+<% end %>
+
+</h3>
+
+<% cart.each do |product| %>
+  <div class="columns box content">
+    <%= image_tag(product.image.variant(resize_to_limit: [100, 100]).processed) %>
+    <div class="column">
+      <%= product.name %>
+      <%= form_with model: product do |f| %>
+        <%# <%= f.hidden_field :product_id, value: product.id %>
+        <%# <%= f.number_field :quantity, value: product.quantity.to_i %>
+        <%# <%= f.submit "Update Cart" %>
+        <%= link_to "Remove Items", cart_path(product), method: :delete, class: "button is-info is-outlined" %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<% if cart.size != 0 %>
+  <%= form_tag(checkout_create_path, remote: true) do %>
+    <%= hidden_field_tag(:cart, cart) %>
+
+    <%= button_tag class: "button is-info is-outlined" do %>
+      <span class="icon-text">
+        <span class="icon">
+          <ion-icon name="cart-outline"></ion-icon>
+        </span>
+        <span>Checkout</span>
+      </span>
+    <% end %>
+  <% end %>
+<% end %>
+
+
+<%# <%= debug cart %>
