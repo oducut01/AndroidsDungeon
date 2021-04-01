@@ -18,34 +18,79 @@
     <section class="section">
       <div class="container">
 
-      <div class="columns is-centered is-vcentered is-gapless">
-        <div class="column">
-          <figure class="image is-128x128">
-            <%= image_tag "logo.png", alt: "logo" %>
-          </figure>
+        <div class="columns is-centered is-vcentered is-gapless">
+          <div class="column">
+            <figure class="image is-128x128">
+              <%= image_tag "logo.png", alt: "logo" %>
+            </figure>
+          </div>
+          <div class="column is-full">
+            <h1 class="title is-1">The Android's Dungeon: Games & Hobbies</h1>
+          </div>
         </div>
-        <div class="column is-full">
-          <h1 class="title is-1">The Android's Dungeon: Games & Hobbies</h1>
-        </div>
-      </div>
 
-        <%= form_with(url: search_products_path, local: true, method: "get", class: 'mt-5 mb-5') do %>
-          <div class="field has-addons">
-            <div class="control">
-              <%= text_field_tag(:search_term, nil, class: 'input', placeholder: 'Search Products By Name', required: true) %>
-            </div>
-            <div class="control">
-              <div class="select">
-                <%= select_tag "category_id", options_from_collection_for_select(Category.all, "id", "name"), prompt: "All"%>
+        <div class="columns is-vcentered">
+          <div class="column is-narrow">
+            <%= form_with(url: search_products_path, local: true, method: "get", class: 'mt-5 mb-5') do %>
+              <div class="field has-addons">
+                <div class="control">
+                  <%= text_field_tag(:search_term, nil, class: 'input', placeholder: 'Search Products By Name', required: true) %>
+                </div>
+                <div class="control">
+                  <div class="select">
+                    <%= select_tag "category_id", options_from_collection_for_select(Category.all, "id", "name"), prompt: "All"%>
+                  </div>
+                </div>
+                <div class="control">
+                  <%= submit_tag("Search", class: "button is-info") %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+          <div class="column">
+
+            <div class="navbar-menu">
+              <div class="navbar-start">
+                <a class="navbar-item">
+                  Home
+                </a>
+
+                <div class="navbar-item has-dropdown is-hoverable">
+                  <a class="navbar-link">
+                    Cart
+                    <% if cart.present? %>
+                      (<%= cart.size %>)
+                    <% end %>
+                  </a>
+                  <div class="navbar-dropdown">
+                  <% if cart.present? %>
+
+                    <% cart.each do |product| %>
+                      <%= link_to "#{product.name} ➖", cart_path(product), method: :delete, class: "navbar-item" %>
+                    <% end %>
+                  <% else %>
+                      <a class="navbar-item">Cart is empty</a>
+                  <% end %>
+                </div>
               </div>
             </div>
-            <div class="control">
-              <%= submit_tag("Search", class: "button is-info") %>
-            </div>
           </div>
-        <% end %>
+        </div>
       </div>
       <div class="container">
+        <% if flash[:notice] %>
+          <article id="message" class="message is-info">
+            <div class="message-header">
+              <p>Info</p>
+              <button class="delete" aria-label="delete"
+                onclick="document.getElementById('message').style.display = 'none';"></button>
+            </div>
+            <div class="message-body">
+              <%= flash[:notice] %>
+            </div>
+          </article>
+        <% end %>
+        <%# <%= debug cart %>
         <%= yield %>
       </div>
     </section>

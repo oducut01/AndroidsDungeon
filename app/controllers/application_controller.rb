@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
-  # before_action :initialize_session, :increment_visit_count
-  # helper_method :visit_count
+  before_action :initialize_session
+  helper_method :cart
 
   private
 
