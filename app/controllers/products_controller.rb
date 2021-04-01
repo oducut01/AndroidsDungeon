@@ -9,8 +9,6 @@ class ProductsController < ApplicationController
                          .page(params[:page])
                          .order(:name)
                 end
-
-    @visit_count = visit_count
   end
 
   # GET /products/1 or /products/1.json
