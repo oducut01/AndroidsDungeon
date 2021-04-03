@@ -12,7 +12,7 @@
         <p class="subtitle is-6">Price: <%= number_to_currency product.salePrice / 100.0 %></p>
       </div>
 
-        <%= form_with url: cart_index_path, method: :post do %>
+        <%= form_with url: cart_products_path, method: :post do %>
           <%= hidden_field_tag(:product_id, product.id) %>
 
           <div class="buttons has-addons is-centered">

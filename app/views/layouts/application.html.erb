@@ -69,7 +69,7 @@
                     <%= form_tag(checkout_create_path, remote: true) do %>
                       <%= hidden_field_tag(:cart, cart) %>
 
-                      <%= link_to cart_index_path, class: "navbar-item is-info is-outlined" do %>
+                      <%= link_to cart_product_path, class: "navbar-item is-info is-outlined" do %>
                         <span class="icon-text">
                           <span class="icon">
                             <ion-icon name="cart-outline"></ion-icon>

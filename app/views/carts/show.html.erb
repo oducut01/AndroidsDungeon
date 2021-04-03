@@ -1,0 +1,22 @@
+<h3 class="title is-3">Your Cart
+
+</h3>
+
+<% @cart.cart_products.each do |cart_product| %>
+  <div class="columns box content">
+    <%= image_tag(cart_product.image.variant(resize_to_limit: [100, 100]).processed) %>
+    <div class="column">
+      <ul>
+        <li><%= cart_product.name %></li>
+        <li>Price: <%= number_to_currency cart_product.salePrice / 100.0 %></li>
+        <li>Quantity: <%= cart_product.quantity %></li>
+      </ul>
+
+      <%= link_to "Add one", cart_product_add_path(:id => cart_product), method: :post%>
+      <%= link_to "Remove Items", cart_product_path(cart_product), method: :delete, class: "button is-info is-outlined" %>
+    </div>
+  </div>
+<% end %>
+
+
+<%# <%= debug cart %>
