@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :current_cart
   protect_from_forgery with: :exception
+  helper_method :cart
 
   private
 
@@ -18,5 +19,9 @@ class ApplicationController < ActionController::Base
       @current_cart = Cart.create
       session[:cart_id] = @current_cart.id
     end
+  end
+
+  def cart
+    @cart = @current_cart
   end
 end

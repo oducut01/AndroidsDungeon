@@ -12,37 +12,14 @@
         <p class="subtitle is-6">Price: <%= number_to_currency product.salePrice / 100.0 %></p>
       </div>
 
-        <%= form_with url: cart_products_path, method: :post do %>
-          <%= hidden_field_tag(:product_id, product.id) %>
-
-          <div class="buttons has-addons is-centered">
-
-            <% if product.quantity <= 0 %>
-              <button class="button is-info is-outlined" title="Disabled button" disabled>Sold Out</button>
-            <% else %>
-              <%= button_tag class: "button is-info is-outlined" do %>
-                <span class="icon-text">
-                  <span class="icon">
-                    <ion-icon name="cart-outline"></ion-icon>
-                  </span>
-                  <span >Add to Cart</span>
-                </span>
-              <% end %>
-            <% end %>
-
-            <%= link_to product, class: "button is-info is-outlined" do %>
-              <span class="icon-text">
-                <span class="icon">
-                  <ion-icon name="eye-outline"></ion-icon>
-              </span>
-                <span>View</span>
-              </span>
-            <% end %>
-          </div>
-
-
-        <% end %>
-
+      <%= link_to product, class: "button is-info is-outlined is-fullwidth" do %>
+        <span class="icon-text">
+          <span class="icon">
+            <ion-icon name="eye-outline"></ion-icon>
+        </span>
+          <span>View</span>
+        </span>
+      <% end %>
     </div>
   </div>
 </div>

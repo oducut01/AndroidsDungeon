@@ -5,7 +5,7 @@ class CartProductsController < ApplicationController
 
     if current_cart.products.include?(chosen_product)
       @cart_product = current_cart.cart_products.find_by(product_id: chosen_product)
-      @cart_product.quantity += 1
+      @cart_product.quantity += params[:quantity].to_i
     else
       @cart_product = CartProduct.new
       @cart_product.cart = current_cart
@@ -19,14 +19,14 @@ class CartProductsController < ApplicationController
 
   def destroy
     @cart_product = CartProduct.find(params[:product_id])
+    flash[:notice] = "Removed #{@cart_product.product.name} from the cart."
     @cart_product.destroy
-    flash[:notice] = "Added #{chosen_product.name} to the cart."
-    redirect_to root_path
+    redirect_to cart_path(@current_cart)
   end
 
   def add_quantity
     @cart_product = LineItem.find(params[:product_id])
-    @cart_product.quantity += 1
+    @cart_product.quantity += params[:quantity]
     @cart_product.save
     redirect_to cart_path(@current_cart)
   end

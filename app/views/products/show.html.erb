@@ -4,40 +4,56 @@
   <%= image_tag(@product.image.variant(resize_to_limit: [300, 285]).processed) %>
 
   <div class="column">
-      <p>
-        <strong>Name:</strong>
-        <%= @product.name %>
-      </p>
-      <p>
-        <strong>Saleprice:</strong>
-        <%= @product.salePrice %>
-      </p>
+    <p class="title is-4">
+      <%= @product.name %>
+    </p>
 
-      <p>
-        <strong>Msrp:</strong>
-        <%= @product.msrp %>
+    <p class="title is-5">
+      Price:
+      <p class="subtitle is-3">
+        <%= number_to_currency @product.salePrice / 100.0 %>
       </p>
+    </p>
 
-      <p>
-        <strong>Description:</strong>
+    <p class="title is-5">
+      Description:
+      <div class="subtitle is-6">
         <%= @product.description %>
-      </p>
+      </div>
+    </p>
 
-      <p>
-        <strong>Quantity:</strong>
+    <p class="title is-5">
+      Stock:
+      <div class="subtitle is-6">
         <%= @product.quantity %>
-      </p>
+      </div>
+    </p>
+  </div>
 
-      <%= form_tag(checkout_create_path, remote: true) do %>
-        <%= hidden_field_tag(:product_id, @product.id) %>
+    <%= form_with url: cart_products_path, method: :post do |form|%>
+      <%= hidden_field_tag(:product_id, @product.id) %>
 
-        <%= button_tag class: "button is-info is-outlined" do %>
-          <span class="icon-text">
-            <span class="icon">
-              <ion-icon name="cart-outline"></ion-icon>
+      <% if @product.quantity <= 0 %>
+        <div class="field">
+          <button class="button is-info is-outlined" title="Disabled button" disabled>Sold Out</button>
+        </div>
+      <% else %>
+        <div class="field">
+          <label class="label" for="quantity">Quantity:</label>
+          <%= form.number_field :quantity, in: 1..@product.quantity, value: 1 , class: "input is-half" %>
+        </div>
+
+        <div class="field">
+          <%= button_tag class: "button is-info is-outlined" do %>
+            <span class="icon-text">
+              <span class="icon">
+                <ion-icon name="cart-outline"></ion-icon>
+              </span>
+              <span >Add to Cart</span>
             </span>
-            <span>Add</span>
-          </span>
-        <% end %>
+          <% end %>
+        </div>
       <% end %>
+    <% end %>
+
 </div>

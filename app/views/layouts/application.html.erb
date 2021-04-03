@@ -56,33 +56,34 @@
                 <div class="navbar-item has-dropdown is-hoverable">
                   <a class="navbar-link">
                     Cart
-                    <% if cart.present? %>
-                      (<%= cart.size %>)
+                    <% if cart.cart_products.present? %>
+                      (<%= cart.total_items %>)
                     <% end %>
                   </a>
                   <div class="navbar-dropdown">
-                  <% if cart.present? %>
+                    <% if cart.cart_products.present? %>
 
-                    <% cart.each do |product| %>
-                      <%= link_to "#{product.name} ➖", cart_path(product), method: :delete, class: "navbar-item" %>
-                    <% end %>
-                    <%= form_tag(checkout_create_path, remote: true) do %>
-                      <%= hidden_field_tag(:cart, cart) %>
-
-                      <%= link_to cart_product_path, class: "navbar-item is-info is-outlined" do %>
-                        <span class="icon-text">
-                          <span class="icon">
-                            <ion-icon name="cart-outline"></ion-icon>
-                          </span>
-                          <span>Checkout</span>
-                        </span>
+                      <% cart.cart_products.each do |cart_product| %>
+                        <%= link_to "#{cart_product.product.name} x #{cart_product.quantity}", product_path(cart_product.product.id), class: "navbar-item" %>
                       <% end %>
+                      <%= form_tag(checkout_create_path, remote: true) do %>
+                        <%= hidden_field_tag(:cart, cart) %>
+
+                        <%= link_to cart, class: "navbar-item is-info is-outlined" do %>
+                          <span class="icon-text">
+                            <span class="icon">
+                              <ion-icon name="cart-outline"></ion-icon>
+                            </span>
+                            <span>Checkout</span>
+                          </span>
+                        <% end %>
+                      <% end %>
+
+
+                    <% else %>
+                        <a class="navbar-item">Cart is empty</a>
                     <% end %>
-
-
-                  <% else %>
-                      <a class="navbar-item">Cart is empty</a>
-                  <% end %>
+                  </div>
                 </div>
               </div>
             </div>
