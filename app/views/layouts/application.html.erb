@@ -19,12 +19,12 @@
       <div class="container">
 
         <div class="columns is-centered is-vcentered is-gapless">
-          <div class="column">
+          <div class="column is-narrow">
             <figure class="image is-128x128">
               <%= image_tag "logo.png", alt: "logo" %>
             </figure>
           </div>
-          <div class="column is-full">
+          <div class="column">
             <h1 class="title is-1">The Android's Dungeon: Games & Hobbies</h1>
           </div>
         </div>
@@ -66,20 +66,14 @@
                       <% cart.cart_products.each do |cart_product| %>
                         <%= link_to "#{cart_product.product.name} x #{cart_product.quantity}", product_path(cart_product.product.id), class: "navbar-item" %>
                       <% end %>
-                      <%= form_tag(checkout_create_path, remote: true) do %>
-                        <%= hidden_field_tag(:cart, cart) %>
-
-                        <%= link_to cart, class: "navbar-item is-info is-outlined" do %>
-                          <span class="icon-text">
-                            <span class="icon">
-                              <ion-icon name="cart-outline"></ion-icon>
-                            </span>
-                            <span>Checkout</span>
+                      <%= link_to cart, class: "navbar-item is-info is-outlined" do %>
+                        <span class="icon-text">
+                          <span class="icon">
+                            <ion-icon name="cart-outline"></ion-icon>
                           </span>
-                        <% end %>
+                          <span>Checkout</span>
+                        </span>
                       <% end %>
-
-
                     <% else %>
                         <a class="navbar-item">Cart is empty</a>
                     <% end %>

@@ -10,10 +10,11 @@ class CartProductsController < ApplicationController
       @cart_product = CartProduct.new
       @cart_product.cart = current_cart
       @cart_product.product = chosen_product
+      @cart_product.quantity = params[:quantity].to_i
     end
 
     @cart_product.save
-    flash[:notice] = "Added #{chosen_product.name} to the cart."
+    flash[:notice] = "Added #{chosen_product.name} x #{params[:quantity].to_i} to the cart."
     redirect_to root_path
   end
 
@@ -24,9 +25,10 @@ class CartProductsController < ApplicationController
     redirect_to cart_path(@current_cart)
   end
 
-  def add_quantity
-    @cart_product = LineItem.find(params[:product_id])
-    @cart_product.quantity += params[:quantity]
+  def change_quantity
+    @cart_product = CartProduct.find(params[:id])
+    @cart_product.quantity = params[:quantity]
+    flash[:notice] = "Updated #{@cart_product.product.name} quantity."
     @cart_product.save
     redirect_to cart_path(@current_cart)
   end
