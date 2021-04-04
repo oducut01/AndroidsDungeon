@@ -3,54 +3,58 @@
     is empty!</h3>
   <% else %>
     </h3>
-    <% @cart.cart_products.each do |cart_product| %>
-      <div class="columns box content">
-        <div class="column">
-          <div class="columns is-vcentered">
-            <div class="column is-narrow">
-              <%= image_tag(cart_product.product.image.variant(resize_to_limit: [100, 100]).processed) %>
-            </div>
+    <div class="box">
+      <% @cart.cart_products.each do |cart_product| %>
+        <div class="columns">
+          <div class="column">
+            <div class="columns is-vcentered">
+              <div class="column is-narrow">
+                <%= image_tag(cart_product.product.image.variant(resize_to_limit: [100, 100]).processed) %>
+              </div>
 
-            <div class="column">
-              <p class="title is-6"><%= link_to cart_product.product.name, product_path(cart_product.product.id) %></p>
-              <p class="title is-6"><%= number_to_currency cart_product.product.salePrice / 100.0 %></p>
-            </div>
+              <div class="column">
+                <p class="title is-6"><%= link_to cart_product.product.name, product_path(cart_product.product.id) %></p>
+                <p class="title is-6"><%= number_to_currency cart_product.product.salePrice / 100.0 %></p>
+              </div>
 
-            <div class="column has-text-centered">
-              <%= form_with url: cart_product_change_path(:id => cart_product), method: :post do |form|%>
-                <div class="field has-addons">
-                  <div class="control">
-                    <%= form.number_field :quantity, in: 1..cart_product.product.quantity, value: cart_product.quantity , class: "input" %>
+              <div class="column has-text-centered">
+                <%= form_with url: cart_product_change_path(:id => cart_product), method: :post do |form|%>
+                  <div class="field has-addons">
+                    <div class="control">
+                      <%= form.number_field :quantity, in: 1..cart_product.product.quantity, value: cart_product.quantity , class: "input" %>
+                    </div>
+                    <div class="control">
+                      <%= button_tag class: "button is-info" do %>
+                        Update Quantity
+                      <% end %>
+                    </div>
                   </div>
-                  <div class="control">
-                    <%= button_tag class: "button is-info" do %>
-                      Update Quantity
-                    <% end %>
-                  </div>
-                </div>
-              <% end %>
-              <%= link_to "Remove", cart_product_path(:product_id => cart_product), method: :delete, class: "button is-small is-info is-outlined" %>
-            </div>
+                <% end %>
+                <%= link_to "Remove", cart_product_path(:product_id => cart_product), method: :delete, class: "button is-small is-info is-outlined" %>
+              </div>
 
-            <div class="column has-text-right aligned">
-              <p class="title is-6"><%= number_to_currency cart_product.total_price / 100.0 %></p>
-            </div>
+              <div class="column has-text-right aligned">
+                <p class="title is-6"><%= number_to_currency cart_product.total_price / 100.0 %></p>
+              </div>
 
+            </div>
           </div>
         </div>
-      </div>
-    <% end %>
-    <%= form_tag(checkout_create_path, remote: true) do %>
-      <%= hidden_field_tag(:cart_id, @cart.id) %>
-      <%= button_tag class: "button is-info is-outlined" do %>
-        <span class="icon-text">
-          <span class="icon">
-            <ion-icon name="cart-outline"></ion-icon>
-          </span>
-          <span>Checkout</span>
-        </span>
       <% end %>
-    <% end %>
+    </div>
+    <div class="box">
+      <%= form_tag(checkout_create_path, remote: true) do %>
+        <%= hidden_field_tag(:cart_id, @cart.id) %>
+        <%= button_tag class: "button is-info is-outlined" do %>
+          <span class="icon-text">
+            <span class="icon">
+              <ion-icon name="cart-outline"></ion-icon>
+            </span>
+            <span>Checkout</span>
+          </span>
+        <% end %>
+      <% end %>
+    </div>
   <% end %>
 
 

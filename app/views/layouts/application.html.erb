@@ -64,14 +64,14 @@
                     <% if cart.cart_products.present? %>
 
                       <% cart.cart_products.each do |cart_product| %>
-                        <%= link_to "#{cart_product.product.name} x #{cart_product.quantity}", product_path(cart_product.product.id), class: "navbar-item" %>
+                        <%= link_to "#{cart_product.quantity} x #{cart_product.product.name}", product_path(cart_product.product.id), class: "navbar-item" %>
                       <% end %>
                       <%= link_to cart, class: "navbar-item is-info is-outlined" do %>
                         <span class="icon-text">
                           <span class="icon">
                             <ion-icon name="cart-outline"></ion-icon>
                           </span>
-                          <span>Checkout</span>
+                          <span>View Cart</span>
                         </span>
                       <% end %>
                     <% else %>
