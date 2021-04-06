@@ -11,9 +11,11 @@ class CartProductsController < ApplicationController
       @cart_product.cart = current_cart
       @cart_product.product = chosen_product
       @cart_product.quantity = params[:quantity].to_i
+      @cart_product.order = nil
     end
 
     @cart_product.save
+
     flash[:notice] = "Added #{chosen_product.name} x #{params[:quantity].to_i} to the cart."
     redirect_to root_path
   end
