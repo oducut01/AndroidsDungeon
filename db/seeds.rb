@@ -1,5 +1,6 @@
 Product.destroy_all
 Category.destroy_all
+Province.destroy_all
 
 c = Category.create(
   name:        "Card Games",
@@ -52,6 +53,19 @@ category = Category.find_by(name: "Boardgames")
   p.image.attach(io: downloaded_image, filename: "m-#{p.name}.jpg")
   sleep(1)
 end
+
+Province.create(name: "Alberta", code: "AB", gst: 5000, pst: 0, hst: 0)
+Province.create(name: "British Columbia", code: "BC", gst: 5000, pst: 7000, hst: 0)
+Province.create(name: "Manitoba", code: "MB", gst: 5000, pst: 7000, hst: 0)
+Province.create(name: "New Brunswick", code: "NB", gst: 0, pst: 0, hst: 15_000)
+Province.create(name: "Newfoundland and Labrador", code: "NL", gst: 0, pst: 0, hst: 15_000)
+Province.create(name: "Nova Scotia", code: "NS", gst: 0, pst: 0, hst: 15_000)
+Province.create(name: "Ontario", code: "ON", gst: 0, pst: 0, hst: 13_000)
+Province.create(name: "Prince Edward Island", code: "PE", gst: 0, pst: 0, hst: 15_000)
+Province.create(name: "Quebec", code: "QC", gst: 5000, pst: 9975, hst: 0)
+Province.create(name: "Saskatchewan", code: "SK", gst: 5000, pst: 6000, hst: 0)
+
+puts "Created #{Province.count} Provinces"
 
 # if Rails.env.development?
 #   AdminUser.create!(email: "admin@example.com", password: "password",

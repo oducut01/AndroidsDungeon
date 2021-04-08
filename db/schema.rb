@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_06_180126) do
-
+ActiveRecord::Schema.define(version: 20_210_408_170_550) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -33,7 +32,8 @@ ActiveRecord::Schema.define(version: 2021_04_06_180126) do
     t.integer "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
-    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+    t.index ["record_type", "record_id", "name", "blob_id"],
+            name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
   create_table "active_storage_blobs", force: :cascade do |t|
@@ -51,7 +51,8 @@ ActiveRecord::Schema.define(version: 2021_04_06_180126) do
   create_table "active_storage_variant_records", force: :cascade do |t|
     t.integer "blob_id", null: false
     t.string "variation_digest", null: false
-    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+    t.index ["blob_id", "variation_digest"],
+            name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
   create_table "admin_users", force: :cascade do |t|
@@ -63,7 +64,8 @@ ActiveRecord::Schema.define(version: 2021_04_06_180126) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+    t.index ["reset_password_token"], name:   "index_admin_users_on_reset_password_token",
+                                      unique: true
   end
 
   create_table "cart_products", force: :cascade do |t|
@@ -98,6 +100,12 @@ ActiveRecord::Schema.define(version: 2021_04_06_180126) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "name"
+    t.string "phone"
+    t.string "address"
+    t.string "city"
+    t.string "province"
+    t.string "postalCode"
     t.index ["email"], name: "index_customers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
   end
@@ -120,6 +128,16 @@ ActiveRecord::Schema.define(version: 2021_04_06_180126) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "category_id", null: false
     t.index ["category_id"], name: "index_products_on_category_id"
+  end
+
+  create_table "provinces", force: :cascade do |t|
+    t.string "name"
+    t.string "code"
+    t.integer "gst"
+    t.integer "pst"
+    t.integer "hst"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
