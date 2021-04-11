@@ -25,6 +25,9 @@ class CheckoutController < ApplicationController
           quantity:    1
         }
       end
+      email = current_customer.email
+    else
+      email = nil
     end
 
     customer = Stripe::Customer.create(
@@ -51,14 +54,14 @@ class CheckoutController < ApplicationController
 
     @session = Stripe::Checkout::Session.create(
       mode:                        "payment",
-      customer:                    customer.id,
       payment_method_types:        ["card"],
       success_url:                 checkout_success_url + "?session_id={CHECKOUT_SESSION_ID}",
       cancel_url:                  checkout_cancel_url,
       line_items:                  line_items,
       shipping_address_collection: {
         allowed_countries: ["CA"]
-      }
+      },
+      customer_email:              email
     )
 
     respond_to do |format|

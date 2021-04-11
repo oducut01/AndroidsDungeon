@@ -9,7 +9,13 @@
       <p class="title is-5"><%= product.name %></p>
 
       <div class="content">
-        <p class="subtitle is-6">Price: <%= number_to_currency product.salePrice / 100.0 %></p>
+      <p class="subtitle is-6">Price: </p>
+        <% if product.salePrice >= product.msrp %>
+          <%= number_to_currency product.msrp / 100.0 %>
+        <% else %>
+          <s><%= number_to_currency product.msrp / 100.0, style: "text-decoration: line-through;" %></s>
+          <%= number_to_currency product.salePrice / 100.0 %>
+        <% end %>
       </div>
 
       <%= link_to product, class: "button is-info is-outlined is-fullwidth" do %>
