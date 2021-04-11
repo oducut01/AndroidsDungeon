@@ -29,9 +29,9 @@
         </div>
 
         <div class="field">
-          <%= f.label :province, class: "label" %>
+          <%= f.label :province_id, class: "label" %>
           <span class="select">
-            <%= f.select :province, options_for_select([['Manitoba'], ['Alberta']]) %>
+            <%= f.collection_select :province_id, Province.all, :id, :name %>
           </span>
         </div>
 

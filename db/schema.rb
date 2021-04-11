@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_210_408_170_550) do
+ActiveRecord::Schema.define(version: 20_210_411_165_954) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -104,9 +104,10 @@ ActiveRecord::Schema.define(version: 20_210_408_170_550) do
     t.string "phone"
     t.string "address"
     t.string "city"
-    t.string "province"
     t.string "postalCode"
+    t.integer "province_id"
     t.index ["email"], name: "index_customers_on_email", unique: true
+    t.index ["province_id"], name: "index_customers_on_province_id"
     t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
   end
 
@@ -140,28 +141,11 @@ ActiveRecord::Schema.define(version: 20_210_408_170_550) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "name"
-    t.string "phone"
-    t.string "address"
-    t.string "city"
-    t.string "province"
-    t.string "postalCode"
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  end
-
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "cart_products", "carts"
   add_foreign_key "cart_products", "orders"
   add_foreign_key "cart_products", "products"
+  add_foreign_key "customers", "provinces"
   add_foreign_key "products", "categories"
 end

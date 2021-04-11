@@ -27,12 +27,10 @@
         </div>
 
         <div class="field">
-          <%= f.label :province, class: "label" %>
+          <%= f.label :province_id, class: "label" %>
           <span class="select">
-            <%= f.select :province,
-              options_for_select([['Alberta'], ['British Columbia'], ['Manitoba'], ['New Brunswick'], ['Newfoundland and Labrador'],
-              ['Northwest Territories'], ['Nova Scotia'], ['Nunavut'], ['Ontario'], ['Prince Edward Island'],
-              ['Quebec'], ['Saskatchewan'], ['Yukon']], current_customer.province) %>
+            <%= f.collection_select :province_id, Province.all, :id, :name, {:selected => current_customer.province_id } %>
+          </span>
           </span>
         </div>
 
