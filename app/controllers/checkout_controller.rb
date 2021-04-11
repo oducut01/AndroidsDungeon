@@ -6,25 +6,37 @@ class CheckoutController < ApplicationController
 
     line_items = cart.cart_products.collect { |item| item.to_builder.attributes! }
 
-    line_items << {
-      name:        "GST",
-      description: "Goods and Services Tax",
-      amount:      (cart.sub_total * 0.05).to_i,
-      currency:    "cad",
-      quantity:    1
-    }
-
     if signed_in?
-      case current_customer.province
-      when "Manitoba"
+      if current_customer.province.gst != 0
         line_items << {
-          name:        "PST",
-          description: "Provincial Sales Tax",
-          amount:      (cart.sub_total * 0.07).to_i,
+          name:        "GST",
+          description: "Goods & Services Tax",
+          amount:      (cart.sub_total * (current_customer.province.gst / 100_000.0)).to_i,
           currency:    "cad",
           quantity:    1
         }
       end
+
+      if current_customer.province.pst != 0
+        line_items << {
+          name:        "PST",
+          description: "Provincial Sales Tax",
+          amount:      (cart.sub_total * (current_customer.province.pst / 100_000.0)).to_i,
+          currency:    "cad",
+          quantity:    1
+        }
+      end
+
+      if current_customer.province.hst != 0
+        line_items << {
+          name:        "HST",
+          description: "Harmonized Sales Tax",
+          amount:      (cart.sub_total * (current_customer.province.pst / 100_000.0)).to_i,
+          currency:    "cad",
+          quantity:    1
+        }
+      end
+
       email = current_customer.email
     else
       email = nil
