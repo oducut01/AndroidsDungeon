@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_210_411_165_954) do
+ActiveRecord::Schema.define(version: 2021_04_11_181835) do
+
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -32,8 +33,7 @@ ActiveRecord::Schema.define(version: 20_210_411_165_954) do
     t.integer "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
-    t.index ["record_type", "record_id", "name", "blob_id"],
-            name: "index_active_storage_attachments_uniqueness", unique: true
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
   create_table "active_storage_blobs", force: :cascade do |t|
@@ -51,8 +51,7 @@ ActiveRecord::Schema.define(version: 20_210_411_165_954) do
   create_table "active_storage_variant_records", force: :cascade do |t|
     t.integer "blob_id", null: false
     t.string "variation_digest", null: false
-    t.index ["blob_id", "variation_digest"],
-            name: "index_active_storage_variant_records_uniqueness", unique: true
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
   create_table "admin_users", force: :cascade do |t|
@@ -64,8 +63,7 @@ ActiveRecord::Schema.define(version: 20_210_411_165_954) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true
-    t.index ["reset_password_token"], name:   "index_admin_users_on_reset_password_token",
-                                      unique: true
+    t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
   create_table "cart_products", force: :cascade do |t|
@@ -114,9 +112,18 @@ ActiveRecord::Schema.define(version: 20_210_411_165_954) do
   create_table "orders", force: :cascade do |t|
     t.string "name"
     t.string "email"
-    t.text "address"
+    t.string "address"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "city"
+    t.string "postalCode"
+    t.string "status"
+    t.string "payment_id"
+    t.integer "gst_total"
+    t.integer "pst_total"
+    t.integer "hst_toal"
+    t.integer "customer_id"
+    t.index ["customer_id"], name: "index_orders_on_customer_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -147,5 +154,6 @@ ActiveRecord::Schema.define(version: 20_210_411_165_954) do
   add_foreign_key "cart_products", "orders"
   add_foreign_key "cart_products", "products"
   add_foreign_key "customers", "provinces"
+  add_foreign_key "orders", "customers"
   add_foreign_key "products", "categories"
 end
