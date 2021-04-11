@@ -31,7 +31,7 @@ class CheckoutController < ApplicationController
         line_items << {
           name:        "HST",
           description: "Harmonized Sales Tax",
-          amount:      (cart.sub_total * (current_customer.province.pst / 100_000.0)).to_i,
+          amount:      (cart.sub_total * (current_customer.province.hst / 100_000.0)).to_i,
           currency:    "cad",
           quantity:    1
         }
