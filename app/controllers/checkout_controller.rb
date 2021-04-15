@@ -42,27 +42,27 @@ class CheckoutController < ApplicationController
       email = nil
     end
 
-    customer = Stripe::Customer.create(
-      description: "My First Test Customer (created for API docs)",
-      address:     {
-        city:        "Winnipeg",
-        country:     "CA",
-        line1:       "123 Fake St.",
-        postal_code: "h0h 0h0",
-        state:       "MB"
-      },
-      shipping:    {
-        address: {
-          city:        "Winnipeg",
-          country:     "CA",
-          line1:       "123 Fake St.",
-          postal_code: "h0h 0h0",
-          state:       "MB"
-        },
-        name:    "Joe",
-        phone:   "1231234"
-      }
-    )
+    # customer = Stripe::Customer.create(
+    #   description: "My First Test Customer (created for API docs)",
+    #   address:     {
+    #     city:        "Winnipeg",
+    #     country:     "CA",
+    #     line1:       "123 Fake St.",
+    #     postal_code: "h0h 0h0",
+    #     state:       "MB"
+    #   },
+    #   shipping:    {
+    #     address: {
+    #       city:        "Winnipeg",
+    #       country:     "CA",
+    #       line1:       "123 Fake St.",
+    #       postal_code: "h0h 0h0",
+    #       state:       "MB"
+    #     },
+    #     name:    "Joe",
+    #     phone:   "1231234"
+    #   }
+    # )
 
     @session = Stripe::Checkout::Session.create(
       mode:                        "payment",
@@ -84,6 +84,27 @@ class CheckoutController < ApplicationController
   def success
     @session = Stripe::Checkout::Session.retrieve(params[:session_id])
     @payment_intent = Stripe::PaymentIntent.retrieve(@session.payment_intent)
+
+    @order = Order.new
+    @order.name = @session.shipping.name
+    @order.email = @session.customer_email
+    @order.address = @session.shipping.address.line1
+    @order.city = @session.shipping.address.city
+    @order.postalCode = @session.shipping.address.postal_code
+    @order.status = @session.payment_status
+    @order.gst_total = 0
+    @order.pst_total = 0
+    @order.hst_total = 0
+    @order.customer_id = current_customer.id
+
+    @current_cart.cart_products.each do |product|
+      @order.cart_products << product
+      product.cart_id = nil
+    end
+    @order.save
+    Cart.destroy(session[:cart_id])
+    session[:cart_id] = nil
+    redirect_to orders_path
   end
 
   def cancel; end

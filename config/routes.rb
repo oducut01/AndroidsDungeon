@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   resources :categories
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+
+  resources :orders
   resources :products, only: :show do
     collection do
       get :search

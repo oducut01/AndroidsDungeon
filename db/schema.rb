@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_11_181835) do
+ActiveRecord::Schema.define(version: 2021_04_11_194203) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -70,8 +70,8 @@ ActiveRecord::Schema.define(version: 2021_04_11_181835) do
     t.integer "quantity", default: 1
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "cart_id", null: false
-    t.integer "product_id", null: false
+    t.integer "cart_id"
+    t.integer "product_id"
     t.integer "order_id"
     t.index ["cart_id"], name: "index_cart_products_on_cart_id"
     t.index ["order_id"], name: "index_cart_products_on_order_id"
@@ -121,7 +121,7 @@ ActiveRecord::Schema.define(version: 2021_04_11_181835) do
     t.string "payment_id"
     t.integer "gst_total"
     t.integer "pst_total"
-    t.integer "hst_toal"
+    t.integer "hst_total"
     t.integer "customer_id"
     t.index ["customer_id"], name: "index_orders_on_customer_id"
   end

@@ -1,13 +1,24 @@
 <h3 class="title is-3">Products</h3>
 
-<div class="field">
-  <label class="label">Filter:</label>
-  <form>
-    <div class="select">
-      <%= select_tag "category_id", options_from_collection_for_select(Category.all, "id", "name", :selected => params[:category_id]),
-        prompt: "All", onchange: 'this.form.submit();' %>
-    </div>
-  </form>
+<label class="label">Filter:</label>
+
+<div class="field is-grouped">
+  <p class="control">
+    <form>
+      <a class="select">
+        <%= select_tag "category_id", options_from_collection_for_select(Category.all, "id", "name", :selected => params[:category_id]),
+          prompt: "All", onchange: 'this.form.submit();' %>
+      </a>
+    </form>
+  </p>
+
+  <p class="control" >
+    <form method="get">
+      <button class="button is-info" name="filter_by" type="submit" value="sale">Sale Items</button>
+      <button class="button is-info" name="filter_by" type="submit" value="new">New Items</button>
+      <button class="button is-info" name="filter_by" type="submit" value="updated">Updated Items</button>
+    </form>
+  </p>
 </div>
 
 

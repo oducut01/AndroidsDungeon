@@ -11,7 +11,7 @@
     <p class="title is-5">
       Price:
       <p class="subtitle is-3">
-        <% if @product.salePrice > @product.msrp %>
+        <% if @product.salePrice >= @product.msrp %>
           <%= number_to_currency @product.msrp / 100.0 %>
         <% else %>
           <s><%= number_to_currency @product.msrp / 100.0, style: "text-decoration: line-through;" %></s>
