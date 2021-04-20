@@ -1,23 +1,28 @@
 <h3 class="title is-3">Your Orders</h3>
 
+  <% if @orders.size == 0%>
+    <p>You don't have any orders!</p>
+  <% else %>
+    <% @orders.each do |order| %>
+      <div class="box">
+        <p class="title is-5">Order #</p>
+        <p class="subtitle is-6"><%= order.id %></p>
+        <p class="title is-5">Total</p>
+        <p class="subtitle is-6"><%= number_to_currency (order.total / 100.0).floor(2) %></p>
 
-  <% @orders.each do |order| %>
-    <div class="box">
-      <p class="title is-5">Order #</p>
-      <p class="subtitle is-6"><%= order.id %></p>
-      <p class="title is-5">Total</p>
-      <p class="subtitle is-6">$<%= (order.total / 100.0).floor(2) %></p>
+        <%= link_to order, class: "button is-info is-outlined is-fullwidth" do %>
+          <span class="icon-text">
+            <span class="icon">
+              <ion-icon name="eye-outline"></ion-icon>
+          </span>
+            <span>View</span>
+          </span>
+        <% end %>
 
-      <%= link_to order, class: "button is-info is-outlined is-fullwidth" do %>
-        <span class="icon-text">
-          <span class="icon">
-            <ion-icon name="eye-outline"></ion-icon>
-        </span>
-          <span>View</span>
-        </span>
-      <% end %>
-
-    </div>
+      </div>
+    <% end %>
   <% end %>
+
+
 
 

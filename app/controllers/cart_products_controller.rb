@@ -2,21 +2,12 @@ class CartProductsController < ApplicationController
   def create
     chosen_product = Product.find(params[:product_id])
     current_cart = @current_cart
-
     if current_cart.products.include?(chosen_product)
-      @cart_product = current_cart.cart_products.find_by(product_id: chosen_product)
-      @cart_product.quantity += params[:quantity].to_i
+      in_cart(current_cart, chosen_product)
     else
-      @cart_product = CartProduct.new
-      @cart_product.cart = current_cart
-      @cart_product.product = chosen_product
-      @cart_product.quantity = params[:quantity].to_i
-      @cart_product.order = nil
+      not_in_cart(current_cart, chosen_product)
     end
-
-    @cart_product.save
-
-    flash[:notice] = "Added #{chosen_product.name} x #{params[:quantity].to_i} to the cart."
+    complete_cart(chosen_product)
     redirect_to root_path
   end
 
@@ -36,6 +27,25 @@ class CartProductsController < ApplicationController
   end
 
   private
+
+  def in_cart(current_cart, chosen_product)
+    @cart_product = current_cart.cart_products.find_by(product_id: chosen_product)
+    @cart_product.quantity += params[:quantity].to_i
+  end
+
+  def not_in_cart(current_cart, chosen_product)
+    @cart_product = CartProduct.new
+    @cart_product.cart = current_cart
+    @cart_product.product = chosen_product
+    @cart_product.quantity = params[:quantity].to_i
+    @cart_product.order = nil
+  end
+
+  def complete_cart(chosen_product)
+    @cart_product.price = chosen_product.salePrice
+    @cart_product.save
+    flash[:notice] = "Added #{chosen_product.name} x #{params[:quantity].to_i} to the cart."
+  end
 
   def cart_product_params
     params.require(:cart_product).permit(:quantity, :product_id, :cart_id)

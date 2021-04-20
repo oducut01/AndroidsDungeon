@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_11_194203) do
+ActiveRecord::Schema.define(version: 2021_04_20_133738) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 2021_04_11_194203) do
     t.integer "cart_id"
     t.integer "product_id"
     t.integer "order_id"
+    t.integer "price"
     t.index ["cart_id"], name: "index_cart_products_on_cart_id"
     t.index ["order_id"], name: "index_cart_products_on_order_id"
     t.index ["product_id"], name: "index_cart_products_on_product_id"
@@ -123,6 +124,7 @@ ActiveRecord::Schema.define(version: 2021_04_11_194203) do
     t.integer "pst_total"
     t.integer "hst_total"
     t.integer "customer_id"
+    t.string "province"
     t.index ["customer_id"], name: "index_orders_on_customer_id"
   end
 

@@ -101,6 +101,10 @@ Province.create(name: "Prince Edward Island", code: "PE", gst: 0, pst: 0, hst: 1
 Province.create(name: "Quebec", code: "QC", gst: 5000, pst: 9975, hst: 0)
 Province.create(name: "Saskatchewan", code: "SK", gst: 5000, pst: 6000, hst: 0)
 
+Province.create(name: "Northwest Territories", code: "NT", gst: 5000, pst: 0, hst: 0)
+Province.create(name: "Nunavut", code: "NU", gst: 5000, pst: 0, hst: 0)
+Province.create(name: "Yukon", code: "YT", gst: 5000, pst: 0, hst: 0)
+
 puts "Created #{Province.count} Provinces"
 
 if Rails.env.development?

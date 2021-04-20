@@ -8,7 +8,7 @@
       <%= @order.name %><br />
       <%= @order.address %><br />
       <%= @order.city %>,
-      <%= @order.customer.province.name %>, Canada<br />
+      <%= @order.province %>, Canada<br />
       <%= @order.postalCode %>
     </p>
   </p>
@@ -26,12 +26,36 @@
 
         <div class="column">
           <% @order.cart_products.each do |cart_product| %>
-              <%= "test" %><br/>
+              <%= number_to_currency cart_product.total_price / 100.0 %><br/>
           <% end %>
         </div>
       </p>
 
     </div>
+
+  </p>
+
+  <p class="title is-5">
+    Subtotal:
+    <p class="subtitle is-6"><%= number_to_currency @order.sub_total / 100.0 %></p>
+  </p>
+
+  <p class="title is-5">
+    Taxes:
+    <% if @order.gst_total != 0 %>
+      <p class="subtitle is-6">GST <%= number_to_currency @order.sub_total * @order.gst_total / 100_00000.0 %></p>
+    <% end %>
+    <% if @order.pst_total != 0 %>
+      <p class="subtitle is-6">PST <%= number_to_currency @order.sub_total * @order.pst_total / 100_00000.0 %></p>
+    <% end %>
+    <% if @order.hst_total != 0 %>
+      <p class="subtitle is-6">HST <%= number_to_currency @order.sub_total * @order.hst_total / 100_00000.0 %></p>
+    <% end %>
+  </p>
+
+  <p class="title is-5">
+    Total:
+    <p class="subtitle is-6"><%= number_to_currency @order.total / 100.0 %></p>
   </p>
 
 
